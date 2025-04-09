@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Ordering - Home</title>
+    <link rel="stylesheet" href="styles[1].css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-top: 120px; /* Adjust for fixed header height */
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 999;
+        }
+        .logo img {
+            height: 80px;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .nav-links {
+            width: 65vw;
+            margin: 0 15px;
+        }
+        .navbar li {
+            list-style: none;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .hero {
+            text-align: center;
+            padding: 50px;
+            color: white;
+            background: url('pizza images/img1.jpg') no-repeat center/cover;
+        }
+        .hero button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .pizza-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+        }
+        .pizza-item {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .pizza-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="PIZZZALOGO.png" alt="Logo">
+        </div>
+        <nav>
+            <div class="nav-links">
+                <ul class="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html">Login/Register</a></li>
+                    <li><a href="search">Search</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <h1>Delicious Pizzas Delivered to Your Doorstep</h1>
+        <p>Order now and enjoy the best pizzas in town.</p>
+        <a href="orderpage.html"><button>Order Now</button></a>
+    </section>
+
+    <section class="featured">
+        <h1><pre> "Choosing the perfect pizza is like choosing a soulmate—go with what makes your heart and stomach happiest!"</pre></h1>
+        <div class="pizza-list" id="pizza-list"></div>
+    </section>
+
+    <footer class="footer">
+        <p>Contact: contact@pizzashop.com | Phone: (123) 456-7890</p>
+    </footer>
+
+    <script>
+        const pizzas = [
+            "Margherita", "Pepperoni", "Veggie", "BBQ Chicken", "Paneer Tikka", "Farmhouse",
+            "Cheese Burst", "Mexican", "Tandoori Paneer", "Chicken Tikka", "Mushroom Delight",
+            "Double Cheese", "Peri Peri Chicken", "Pasta Pizza", "Meat Feast", "Hawaiian",
+            "Supreme", "Cheesy Garlic", "Italian Special", "Spicy Chicken", "Kebab Pizza"
+        ];
+
+        let pizzaHTML = "";
+        for (let i = 0; i < pizzas.length; i++) {
+            pizzaHTML += `
+                <div class="pizza-item">
+                    <img src="pizza images/img${i + 1}.jpg" alt="${pizzas[i]}">
+                    <h3>${pizzas[i]}</h3>
+                    <p>₹${199 + (i * 10)}</p>
+                    <button>ADD TO CART</button>
+                </div>
+            `;
+        }
+        document.getElementById("pizza-list").innerHTML = pizzaHTML;
+    </script>
+</body>
+</html>

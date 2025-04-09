@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Pizza Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pizza.html" class="active">Menu</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login/Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Pizza Listings Section -->
+    <section class="pizza-menu">
+        <h2>Our Pizza Menu</h2>
+        <div class="pizza-grid"></div>
+    </section>
+    
+    <!-- Cart Overview (Sidebar) -->
+    <aside class="cart-sidebar">
+        <h2>Cart</h2>
+        <ul class="cart-items"></ul>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </aside>
+    
+    <footer>
+        <ul>
+            <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+        </ul>
+        <p>Contact Us: 123-456-7890 | info@pizzastore.com</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let pizzaGrid = document.querySelector(".pizza-grid");
+            let cartItems = document.querySelector(".cart-items");
+            let cart = [];
+            
+            let pizzas = "";
+            for (let i = 1; i <= 10; i++) {
+                pizzas += `
+                    <div class="pizza-item">
+                        <img src="pizza${i}.jpg" alt="Pizza ${i}">
+                        <h3>Pizza ${i}</h3>
+                        <p>Delicious ingredients and flavors.</p>
+                        <span>$${(i * 2 + 5).toFixed(2)}</span>
+                        <ul>
+                            <li>Cheese</li>
+                            <li>Tomato Sauce</li>
+                            <li>Fresh Toppings</li>
+                        </ul>
+                        <button class="add-to-cart" data-id="${i}" data-name="Pizza ${i}" data-price="${(i * 2 + 5).toFixed(2)}">Add to Cart</button>
+                    </div>`;
+            }
+            pizzaGrid.innerHTML = pizzas;
+            
+            document.querySelectorAll(".add-to-cart").forEach(button => {
+                button.addEventListener("click", function () {
+                    let id = this.getAttribute("data-id");
+                    let name = this.getAttribute("data-name");
+                    let price = parseFloat(this.getAttribute("data-price"));
+                    
+                    let existingItem = cart.find(item => item.id === id);
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        cart.push({ id, name, price, quantity: 1 });
+                    }
+                    updateCart();
+                });
+            });
+            
+            function updateCart() {
+                cartItems.innerHTML = "";
+                cart.forEach(item => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `${item.name} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)} 
+                        <button class="remove-item" data-id="${item.id}">Remove</button>`;
+                    cartItems.appendChild(li);
+                });
+                document.querySelectorAll(".remove-item").forEach(button => {
+                    button.addEventListener("click", function () {
+                        let id = this.getAttribute("data-id");
+                        cart = cart.filter(item => item.id !== id);
+                        updateCart();
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
